@@ -47,24 +47,34 @@
     .links a {
       margin-right: 80px;
     }
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
   </style>
 </head>
 <body>
-  <h1>ToaztWeb</h1>
-  <div id="haha"></div>
-
-  <div class="search-container">
-    <input type="text" placeholder="Enter URL and hit the icon on the right..." maxlength="50">
-    <div class="search-icon">
-      <i class="fas fa-search" onclick="getSite()"></i>
+  <div id="content">
+    <h1>ToaztWeb</h1>
+    <div id="haha"></div>
+    <div class="search-container">
+      <input type="text" placeholder="Enter URL and hit the icon on the right..." maxlength="50">
+      <div class="search-icon">
+        <i class="fas fa-search" onclick="getSite()"></i>
+      </div>
     </div>
   </div>
-
+  <div id="iframeContainer" style="display: none;">
+    <iframe src="https://deltamath.com"></iframe>
+  </div>
 
   <script>
     var haha = document.getElementById("haha");
+    var content = document.getElementById("content");
+    var iframeContainer = document.getElementById("iframeContainer");
 
-    function lmao(){
+    function lmao() {
       var lol = [
         'Do your homework.',
         'Breaking every bone in your body since 1979.',
@@ -80,7 +90,7 @@
       haha.textContent = lol[hehe];
     }
 
-    lmao()
+    lmao();
 
     function getSite() {
       let inputValue = document.querySelector('input').value;
@@ -92,6 +102,19 @@
       const encodedValue = btoa(inputValue);
       window.location.href = "/web/_" + encodedValue + '_/';
     }
+
+    document.addEventListener("dblclick", (event) => {
+      if (event.target.tagName !== "BODY") return; // Prevent interference with other double clicks
+      if (event.detail === 2 && event.target.innerHTML.includes('\\')) {
+        if (content.style.display === "none") {
+          content.style.display = "flex";
+          iframeContainer.style.display = "none";
+        } else {
+          content.style.display = "none";
+          iframeContainer.style.display = "block";
+        }
+      }
+    });
   </script>
 </body>
 </html>
